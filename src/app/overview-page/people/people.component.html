@@ -1,0 +1,23 @@
+<app-header></app-header>
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-accordion multi="true" *ngIf="!isLoading">
+    <mat-expansion-panel *ngFor="let person of people">
+        <mat-expansion-panel-header>
+            <p>{{person.name}} </p>
+        </mat-expansion-panel-header>
+        <p>Birth year: {{person.birth_year}}</p>
+        <p>Gender: {{person.gender}}</p>
+        <p>Height: {{person.height}}</p>
+        <p>Mass: {{person.mass}}</p>
+        <p>Eye color: {{person.eye_color}}</p>
+        <p>Hair color: {{person.hair_color}}</p>
+        <p>Skin color: {{person.skin_color}}</p>
+        <mat-action-row >
+            <a mat-button color="accent" >View Films </a>
+            <a mat-button color="accent" >View Planets</a>
+            <a mat-button color="accent">View Species</a>
+            <a mat-button color="accent" >View Starships</a>
+            <a mat-button color="accent">View Vehicles</a>
+        </mat-action-row>
+    </mat-expansion-panel>
+</mat-accordion>

@@ -1,0 +1,19 @@
+<app-header></app-header>
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-accordion multi="true" *ngIf="!isLoading">
+    <mat-expansion-panel *ngFor="let film of films">
+        <mat-expansion-panel-header>
+            <p>{{film.title}} <b>( {{ film.release_date | date: 'longDate'}} )</b></p>
+        </mat-expansion-panel-header>
+        <p>{{film.opening_crawl}}</p>
+        <p>Director: {{film.director}}</p>
+        <p>Producer: {{film.producer}}</p>
+        <mat-action-row >
+            <a mat-button color="accent" [routerLink]="['/film', film.url]">View Characters </a>
+            <a mat-button color="accent" [routerLink]="['/film', film.url]">View Planets</a>
+            <a mat-button color="accent" [routerLink]="['/film', film.url]">View Species</a>
+            <a mat-button color="accent" [routerLink]="['/film', film.url]">View Starships</a>
+            <a mat-button color="accent" [routerLink]="['/film', film.url]">View Vehicles</a>
+        </mat-action-row>
+    </mat-expansion-panel>
+</mat-accordion>

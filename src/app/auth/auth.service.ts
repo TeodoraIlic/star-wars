@@ -12,10 +12,7 @@ export class AuthService {
     private token: string;
     isAuthenticated = false;
     private tokenTimer: any;
-    // That will actually be a new subject imported 
-    //from rxjs and I will use that subject to push
-    // the authentication information
-    // to the components which are interested.
+
     private authStatusListener = new Subject<boolean>();
 
     constructor(private http: HttpClient, private router: Router){}

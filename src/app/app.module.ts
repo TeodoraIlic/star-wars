@@ -18,12 +18,26 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { SignupComponent } from './auth/signup/signup.component';
 import { OverviewPageComponent } from './overview-page/overview-page.component';
+import { HeaderComponent } from './header/header.component';
+import { FilmsComponent } from './overview-page/films/films.component';
+import { PeopleComponent } from './overview-page/people/people.component';
+import { PlanetsComponent } from './overview-page/planets/planets.component';
+import { SpeciesComponent } from './overview-page/species/species.component';
+import { StarshipsComponent } from './overview-page/starships/starships.component';
+import { VehiclesComponent } from './overview-page/vehicles/vehicles.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SignupComponent,
-    OverviewPageComponent
+    OverviewPageComponent,
+    HeaderComponent,
+    FilmsComponent,
+    PeopleComponent,
+    PlanetsComponent,
+    SpeciesComponent,
+    StarshipsComponent,
+    VehiclesComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +52,8 @@ import { OverviewPageComponent } from './overview-page/overview-page.component';
     MatProgressSpinnerModule,
     HttpClientModule,
     MatPaginatorModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
