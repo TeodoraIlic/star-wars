@@ -1,1 +1,22 @@
-<p>starships works!</p>
+
+<app-header></app-header>
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-accordion multi="true" *ngIf="!isLoading">
+    <mat-expansion-panel *ngFor="let starship of starships">
+        <mat-expansion-panel-header>
+            <p>{{starship.name}} </p>
+        </mat-expansion-panel-header>
+        <p>Starship Class: {{starship.starship_class}}</p>
+        <p>Model: {{starship.model}}</p>
+        <p>Manufacturer: {{starship.manufacturer}}</p>
+        <p>Crew: {{starship.crew}}</p>
+        <p>Passengers: {{starship.passengers}}</p>
+        <p>Ponsumables: {{starship.ponsumables}}</p>
+        <p>Max Atmosphering Speed: {{starship.max_atmosphering_speed}}</p>
+        <p>Hyperdrive Rating: {{starship.hyperdrive_rating}}</p>
+        <mat-action-row >
+            <a mat-button color="accent">View Pilots</a>
+            <a mat-button color="accent">View Films</a>
+        </mat-action-row>
+    </mat-expansion-panel>
+</mat-accordion>
