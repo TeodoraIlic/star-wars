@@ -10,8 +10,8 @@ export class PeopleService {
 
   private person;
   private people;
-  private personUpdated= new Subject<any>();
-  private peopleUpdated= new Subject<any[]>();
+  private personUpdated= new Subject<Person>();
+  private peopleUpdated= new Subject<Person[]>();
   constructor(private http: HttpClient) { }
 
   getPeopleUpdateListener() {

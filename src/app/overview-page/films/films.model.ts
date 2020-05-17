@@ -1,7 +1,7 @@
 export interface Films {
     count: number,
-    next: null,
-    previous: null,
+    next: string,
+    previous: string,
     results: Film[]
 }
 

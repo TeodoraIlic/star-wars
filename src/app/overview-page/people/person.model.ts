@@ -1,15 +1,14 @@
-import { Film } from '../films/films.model';
 export interface People {
     count: number,
-    next: null,
-    previous: null,
+    next: string,
+    previous: string,
     results: Person[]
 }
 
 export interface Person {
     birth_year: string,
     eye_color: string,
-    films: Film[],
+    films: string[],
     gender: string,
     hair_color: string,
     height: string,
@@ -19,8 +18,8 @@ export interface Person {
     skin_color: string,
     created: string,
     edited: string,
-    species: any[],
-    starships: any[],
+    species: string[],
+    starships: string[],
     url: string,
-    vehicles: any[]
+    vehicles: string[]
 }

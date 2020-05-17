@@ -3,6 +3,7 @@ import { Categories } from '../categories.model';
 import { Subscription } from 'rxjs';
 import { CategoriesService } from 'src/app/service/categories.service';
 import { PeopleService } from 'src/app/service/people.service';
+import {  Person } from './person.model';
 
 @Component({
   selector: 'app-people',
@@ -14,9 +15,9 @@ export class PeopleComponent implements OnInit {
   peopleUrl: string; 
   categories: Categories;
   categoriesSub: Subscription;
-  people;
+  people: Person[];
   peopleSub: Subscription;
-  person;
+  person: Person;
   personSub: Subscription;
   constructor(private categoriesService: CategoriesService, private peopleService: PeopleService) { }
 
