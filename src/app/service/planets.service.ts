@@ -7,8 +7,8 @@ import { Planet, Planets } from '../overview-page/planets/planets.model';
   providedIn: 'root'
 })
 export class PlanetsService {
-  private planet;
-  private planets;
+  private planet: Planet;
+  private planets: Planet[];
   private planetUpdated= new Subject<Planet>();
   private planetsUpdated= new Subject<Planet[]>();
   constructor(private http: HttpClient) { }
