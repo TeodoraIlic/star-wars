@@ -2,6 +2,9 @@
   <span><a routerLink="/overview-page">Star Wars Saga</a></span>
   <span class="spacer"></span>
   <ul>
+    <li>
+      <app-fuzzy-search></app-fuzzy-search>
+    </li>
     <li *ngIf="userIsAuthenticated">
       <button mat-button (click)="onLogout()">Logout</button>
     </li>

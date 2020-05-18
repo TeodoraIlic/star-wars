@@ -1,0 +1,16 @@
+<div class="search-box">
+    <form [formGroup]="form" (submit)="search()">
+        <mat-form-field floatLabel="never">
+            <input 
+            #box
+            matInput 
+            type="text" 
+            placeholder="Search"
+            (keyup)="onKeyup(box.value)">
+        </mat-form-field>
+        <button mat-raised-button type="submit">
+            <mat-icon>search</mat-icon>
+        </button>
+    </form>
+   
+</div>

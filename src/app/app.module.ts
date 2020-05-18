@@ -25,6 +25,9 @@ import { PlanetsComponent } from './overview-page/planets/planets.component';
 import { SpeciesComponent } from './overview-page/species/species.component';
 import { StarshipsComponent } from './overview-page/starships/starships.component';
 import { VehiclesComponent } from './overview-page/vehicles/vehicles.component';
+import { FuzzySearchComponent } from './fuzzy-search/fuzzy-search/fuzzy-search.component';
+import { MatIconModule } from "@angular/material/icon";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +40,8 @@ import { VehiclesComponent } from './overview-page/vehicles/vehicles.component';
     PlanetsComponent,
     SpeciesComponent,
     StarshipsComponent,
-    VehiclesComponent
+    VehiclesComponent,
+    FuzzySearchComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +57,9 @@ import { VehiclesComponent } from './overview-page/vehicles/vehicles.component';
     HttpClientModule,
     MatPaginatorModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatIconModule
+
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
