@@ -35,9 +35,9 @@ export class PlanetsComponent implements OnInit {
   getAllPlanets(url: string){
     this.planetsService.getAllPlanets(url);
     this.planetsSub = this.planetsService.getPlanetsUpdateListener().subscribe((planets)=>{
-      this. planets = planets;
+      this.planets = planets;
     });
-    console.log(this.planets);
+   
   }
 
 }

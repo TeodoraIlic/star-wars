@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FuzzySearchService } from 'src/app/service/fuzzy-search.service';
 
 @Component({
   selector: 'app-fuzzy-search',
@@ -9,20 +10,19 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class FuzzySearchComponent implements OnInit {
   values: string = '';
   form: FormGroup;
-  constructor() { }
+  constructor(private search: FuzzySearchService) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      'content': new FormControl(null, {validators: [Validators.required]}),
+      'content': new FormControl(null, {  validators: [Validators.required] })
   });
     
   }
   onKeyup(value: string){
     this.values = value;
     console.log(this.values);
-    
+    this.search.refreshSearch(value);
   }
-  search(){
-
-  }
+  
+ 
 }
