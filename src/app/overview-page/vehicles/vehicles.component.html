@@ -1,1 +1,22 @@
-<p>vehicles works!</p>
+
+<app-header></app-header>
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-accordion multi="true" *ngIf="!isLoading">
+    <mat-expansion-panel *ngFor="let vehicle of vehicles">
+        <mat-expansion-panel-header>
+            <p>{{vehicle.name}} </p>
+        </mat-expansion-panel-header>
+        <p>Model: {{vehicle.model}}</p>
+        <p>Language: {{vehicle.language}}</p>
+        <p>Manufacturer: {{vehicle.manufacturer}}</p>
+        <p>Vehicle class: {{vehicle.vehicle_class}}</p>
+        <p>Namber of crew member: {{vehicle.crew}}</p>
+        <p>Cargo capacity: {{vehicle.cargo_capacity}}</p>
+        <p>Number of passengers: {{vehicle.passengers}}</p>
+        <p>Cost of the vehicle in Galactic Credits: {{vehicle.cost_in_credits}}</p>
+        <mat-action-row >
+            <a mat-button color="accent" >View Pilots</a>
+            <a mat-button color="accent" >View Films</a>
+        </mat-action-row>
+    </mat-expansion-panel>
+</mat-accordion>
