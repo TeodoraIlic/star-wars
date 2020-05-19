@@ -1,24 +1,19 @@
 <app-header></app-header>
 
-<div class="big-img"></div>
-
-<div class="grid-container">
-    <div class="category-1">
-        <a mat-button routerLink="/films" routerLinkActive='mat-accent'><h1><b>Films</b></h1></a>
-    </div>
-    <div class="category-1">
-        <a mat-button routerLink="/people" routerLinkActive='mat-accent'><h1><b>People</b></h1></a>
-    </div>
-    <div class="category-2">
-        <a mat-button routerLink="/planets" routerLinkActive='mat-accent'><h1><b>Planets</b></h1></a>
-    </div>  
-    <div class="category-1">
-        <a mat-button routerLink="/species" routerLinkActive='mat-accent'><h1><b>Species</b></h1></a>
-    </div>
-    <div class="category-2">
-        <a mat-button routerLink="/starships" routerLinkActive='mat-accent'><h1><b>Starships</b></h1></a>
-    </div>
-    <div class="category-2">
-        <a mat-button routerLink="/vehicles" routerLinkActive='mat-accent'><h1><b>Vehicles</b></h1></a>
-    </div>  
-</div>
+<div class="big-img"></div> 
+<section class="filter-menu">
+    <mat-checkbox class="filter-menu-element" [(ngModel)]="filter.people" (change)="activateChange('people')">People</mat-checkbox>
+    <mat-checkbox class="filter-menu-element" [(ngModel)]="filter.films" (change)="activateChange('films')">Films</mat-checkbox>
+    <mat-checkbox class="filter-menu-element" [(ngModel)]="filter.starships" (change)="activateChange('starships')">Starships</mat-checkbox>
+    <mat-checkbox class="filter-menu-element" [(ngModel)]="filter.vehicles" (change)="activateChange('vehicles')">Vehicles</mat-checkbox>
+    <mat-checkbox class="filter-menu-element" [(ngModel)]="filter.species" (change)="activateChange('species')">Species</mat-checkbox>
+    <mat-checkbox class="filter-menu-element" [(ngModel)]="filter.planets" (change)="activateChange('planets')">Planets</mat-checkbox>
+</section>
+<section>
+    <app-films *ngIf="filterCategories.films"></app-films>
+    <app-people *ngIf="filterCategories.people"></app-people>
+    <app-planets *ngIf="filterCategories.planets"></app-planets>
+    <app-species *ngIf="filterCategories.species"></app-species>
+    <app-starships *ngIf="filterCategories.starships"></app-starships>
+    <app-vehicles *ngIf="filterCategories.vehicles"></app-vehicles>
+</section>

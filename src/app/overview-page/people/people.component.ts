@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { CategoriesService } from 'src/app/service/categories.service';
 import { PeopleService } from 'src/app/service/people.service';
 import {  Person } from './person.model';
+import { FuzzySearchService } from 'src/app/service/fuzzy-search.service';
 
 @Component({
   selector: 'app-people',
@@ -13,13 +14,14 @@ import {  Person } from './person.model';
 export class PeopleComponent implements OnInit {
   isLoading = true;
   peopleUrl: string; 
+  searchValue: string = '';
   categories: Categories;
   categoriesSub: Subscription;
   people: Person[];
   peopleSub: Subscription;
   person: Person;
   personSub: Subscription;
-  constructor(private categoriesService: CategoriesService, private peopleService: PeopleService) { }
+  constructor(private categoriesService: CategoriesService, private peopleService: PeopleService, private fuzzySearchService: FuzzySearchService) { }
 
   ngOnInit(): void {
     this.categoriesService.getCategories();
@@ -30,6 +32,9 @@ export class PeopleComponent implements OnInit {
       this.getAllPeople(this.peopleUrl);
     
     });
+    this.fuzzySearchService.valueUpdateListener().subscribe(value=>{
+      this.searchValue=value;
+    })
   }
 
   getAllPeople(url: string){

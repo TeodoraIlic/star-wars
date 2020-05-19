@@ -1,5 +1,5 @@
 mat-toolbar{
-    background-color: rgb(7, 45, 71);
+    background-color: rgb(12, 17, 90);
 }
 ul {
     list-style: none;
@@ -19,4 +19,5 @@ a {
 
 ::ng-deep .mat-raised-button  {
     background-color: rgb(164, 227, 246);
+
 }

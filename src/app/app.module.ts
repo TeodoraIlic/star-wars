@@ -16,6 +16,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatExpansionModule} from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SignupComponent } from './auth/signup/signup.component';
 import { OverviewPageComponent } from './overview-page/overview-page.component';
 import { HeaderComponent } from './header/header.component';
@@ -25,8 +26,9 @@ import { PlanetsComponent } from './overview-page/planets/planets.component';
 import { SpeciesComponent } from './overview-page/species/species.component';
 import { StarshipsComponent } from './overview-page/starships/starships.component';
 import { VehiclesComponent } from './overview-page/vehicles/vehicles.component';
-import { FuzzySearchComponent } from './fuzzy-search/fuzzy-search/fuzzy-search.component';
 import { MatIconModule } from "@angular/material/icon";
+import { FuzzySearchPipe } from './pipes/fuzzy-search.pipe';
+import { FuzzySearchComponent } from './fuzzy-search/fuzzy-search/fuzzy-search.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,8 @@ import { MatIconModule } from "@angular/material/icon";
     SpeciesComponent,
     StarshipsComponent,
     VehiclesComponent,
-    FuzzySearchComponent
+    FuzzySearchComponent,
+    FuzzySearchPipe
   ],
   imports: [
     BrowserModule,
@@ -58,7 +61,8 @@ import { MatIconModule } from "@angular/material/icon";
     MatPaginatorModule,
     FormsModule,
     HttpClientModule,
-    MatIconModule
+    MatIconModule,
+    MatCheckboxModule
 
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],

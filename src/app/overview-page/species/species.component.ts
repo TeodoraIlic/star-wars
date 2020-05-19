@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { Categories } from '../categories.model';
 import { CategoriesService } from 'src/app/service/categories.service';
 import { SpeciesService } from 'src/app/service/species.service';
+import { FuzzySearchService } from 'src/app/service/fuzzy-search.service';
 
 @Component({
   selector: 'app-species',
@@ -13,13 +14,14 @@ import { SpeciesService } from 'src/app/service/species.service';
 export class SpeciesComponent implements OnInit {
   isLoading = true;
   speciesUrl: string; 
+  searchValue: string = '';
   categories: Categories;
   categoriesSub: Subscription;
   species: Specimen[];
   speciesSub: Subscription;
   specimen: Specimen;
   specimenSub: Subscription;
-  constructor(private categoriesService: CategoriesService, private speciesService: SpeciesService) { }
+  constructor(private categoriesService: CategoriesService, private speciesService: SpeciesService, private fuzzySearchService: FuzzySearchService) { }
 
   ngOnInit(): void {
     this.categoriesService.getCategories();
@@ -29,6 +31,9 @@ export class SpeciesComponent implements OnInit {
       this.speciesUrl = categories.species;
       this.getSpecies(this.speciesUrl);
     });
+    this.fuzzySearchService.valueUpdateListener().subscribe(value=>{
+      this.searchValue=value;
+    })
   }
 
   getSpecies(url: string){

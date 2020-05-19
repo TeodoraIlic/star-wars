@@ -1,8 +1,7 @@
 
-<app-header></app-header>
-<mat-spinner *ngIf="isLoading"></mat-spinner>
+
 <mat-accordion multi="true" *ngIf="!isLoading">
-    <mat-expansion-panel *ngFor="let specimen of species">
+    <mat-expansion-panel *ngFor="let specimen of species | fuzzySearch: ['name']: searchValue">
         <mat-expansion-panel-header>
             <p>{{specimen.name}} </p>
         </mat-expansion-panel-header>

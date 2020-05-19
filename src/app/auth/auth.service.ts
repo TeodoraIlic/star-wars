@@ -34,8 +34,7 @@ export class AuthService {
         setTimeout(()=>{
             this.http.post("http://localhost:3001/api/user/signup", authData)
             .subscribe(response => {
-                console.log(response);
-                this.router.navigate(['/overview-page']);
+                this.router.navigate(['']);
             })
         }, 1500);
         

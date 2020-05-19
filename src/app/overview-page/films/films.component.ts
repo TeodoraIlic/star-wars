@@ -13,6 +13,7 @@ import { FuzzySearchService } from 'src/app/service/fuzzy-search.service';
 })
 export class FilmsComponent implements OnInit {
   isLoading = true;
+  searchValue: string = '';
   filmsUrl: string; 
   categories: Categories;
   categoriesSub: Subscription;
@@ -20,7 +21,7 @@ export class FilmsComponent implements OnInit {
   filmsSub: Subscription;
   film: Film;
   filmSub: Subscription;
-  constructor(private categoriesService: CategoriesService, private filmsService: FilmsService, private fuzzySearch: FuzzySearchService) { }
+  constructor(private categoriesService: CategoriesService, private filmsService: FilmsService, private fuzzySearchService: FuzzySearchService) { }
 
   ngOnInit(): void {
     this.categoriesService.getCategories();
@@ -30,16 +31,16 @@ export class FilmsComponent implements OnInit {
       this.filmsUrl = categories.films;
       this.getFilms(this.filmsUrl);
     });
-    this.fuzzySearch.itemsUpdateListener().subscribe(res => {
-      this.films = res;
-    });
+    this.fuzzySearchService.valueUpdateListener().subscribe(value=>{
+      this.searchValue=value;
+    })
   }
 
   getFilms(url: string){
     this.filmsService.getFilms(url);
     this.filmsSub = this.filmsService.getFilmsUpdateListener().subscribe((films: Film[])=>{
       this.films = films;
-      this.fuzzySearch.loadDataFromComponent(this.films);
+     
     });
   }
 

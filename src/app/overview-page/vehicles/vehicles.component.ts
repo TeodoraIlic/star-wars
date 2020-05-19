@@ -4,6 +4,7 @@ import { Categories } from '../categories.model';
 import { Vehicle } from './vehicles.model';
 import { CategoriesService } from 'src/app/service/categories.service';
 import { VehiclesService } from 'src/app/service/vehicles.service';
+import { FuzzySearchService } from 'src/app/service/fuzzy-search.service';
 
 @Component({
   selector: 'app-vehicles',
@@ -13,13 +14,14 @@ import { VehiclesService } from 'src/app/service/vehicles.service';
 export class VehiclesComponent implements OnInit {
   isLoading = true;
   vehiclesUrl: string; 
+  searchValue: string = '';
   categories: Categories;
   categoriesSub: Subscription;
   vehicles: Vehicle[];
   vehiclesSub: Subscription;
   vehicle: Vehicle;
   vehicleSub: Subscription;
-  constructor(private categoriesService: CategoriesService, private vehiclesService: VehiclesService) { }
+  constructor(private categoriesService: CategoriesService, private vehiclesService: VehiclesService, private fuzzySearchService: FuzzySearchService) { }
 
   ngOnInit(): void {
     this.categoriesService.getCategories();
@@ -29,6 +31,9 @@ export class VehiclesComponent implements OnInit {
       this.vehiclesUrl = categories.vehicles;
       this.getVehicles(this.vehiclesUrl);
     });
+    this.fuzzySearchService.valueUpdateListener().subscribe(value=>{
+      this.searchValue=value;
+    })
   }
 
   getVehicles(url: string){

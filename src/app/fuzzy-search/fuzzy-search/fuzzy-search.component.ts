@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { FuzzySearchService } from 'src/app/service/fuzzy-search.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-fuzzy-search',
@@ -18,11 +19,9 @@ export class FuzzySearchComponent implements OnInit {
   });
     
   }
+ 
   onKeyup(value: string){
     this.values = value;
-    console.log(this.values);
-    this.search.refreshSearch(value);
+    this.search.updateValue(value);
   }
-  
- 
 }

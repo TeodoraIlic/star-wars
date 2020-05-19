@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { Starship } from './starships.model';
 import { CategoriesService } from 'src/app/service/categories.service';
 import { StarshipsService } from 'src/app/service/starships.service';
+import { FuzzySearchService } from 'src/app/service/fuzzy-search.service';
 
 @Component({
   selector: 'app-starships',
@@ -13,13 +14,14 @@ import { StarshipsService } from 'src/app/service/starships.service';
 export class StarshipsComponent implements OnInit {
   isLoading = true;
   starshipsUrl: string; 
+  searchValue: string = '';
   categories: Categories;
   categoriesSub: Subscription;
   starships: Starship[];
   starshipsSub: Subscription;
   starship: Starship;
   sstarshipSub: Subscription;
-  constructor(private categoriesService: CategoriesService, private starshipsService: StarshipsService) { }
+  constructor(private categoriesService: CategoriesService, private starshipsService: StarshipsService, private fuzzySearchService: FuzzySearchService) { }
 
   ngOnInit(): void {
     this.categoriesService.getCategories();
@@ -29,6 +31,9 @@ export class StarshipsComponent implements OnInit {
       this.starshipsUrl = categories.starships;
       this.getStarships(this.starshipsUrl);
     });
+    this.fuzzySearchService.valueUpdateListener().subscribe(value=>{
+      this.searchValue=value;
+    })
   }
 
   getStarships(url: string){

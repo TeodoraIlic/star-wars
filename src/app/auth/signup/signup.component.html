@@ -1,8 +1,6 @@
 <div class="forth-gif" *ngIf="isLoading"></div>
 <div class="big-img">
 <mat-card >
-    <!-- <mat-spinner *ngIf="isLoading"></mat-spinner> -->
-    
         <form (submit)="onSignUp(signupForm)" #signupForm="ngForm" *ngIf="!isLoading">
             <mat-form-field>
                 <input 
