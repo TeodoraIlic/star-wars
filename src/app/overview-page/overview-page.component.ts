@@ -19,7 +19,7 @@ export class OverviewPageComponent implements OnInit {
     
   }
  
-  activateChange(category){
+  activateChange(){
     this.showAllCategories = !this.filter.films && !this.filter.people && !this.filter.planets && !this.filter.species && !this.filter.starships && !this.filter.vehicles;
     
     for (var key in this.filter) {
@@ -27,8 +27,6 @@ export class OverviewPageComponent implements OnInit {
       console.log(key +' '+this.filter[key] );
       
     }
-   
-    console.log(this.showAllCategories);
     
     if(this.showAllCategories){
       for (var key in this.filter) {

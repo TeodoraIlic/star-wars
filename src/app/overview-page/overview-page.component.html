@@ -2,12 +2,12 @@
 
 <div class="big-img"></div> 
 <section class="filter-menu">
-    <mat-checkbox class="filter-menu-element" [(ngModel)]="filter.people" (change)="activateChange('people')">People</mat-checkbox>
-    <mat-checkbox class="filter-menu-element" [(ngModel)]="filter.films" (change)="activateChange('films')">Films</mat-checkbox>
-    <mat-checkbox class="filter-menu-element" [(ngModel)]="filter.starships" (change)="activateChange('starships')">Starships</mat-checkbox>
-    <mat-checkbox class="filter-menu-element" [(ngModel)]="filter.vehicles" (change)="activateChange('vehicles')">Vehicles</mat-checkbox>
-    <mat-checkbox class="filter-menu-element" [(ngModel)]="filter.species" (change)="activateChange('species')">Species</mat-checkbox>
-    <mat-checkbox class="filter-menu-element" [(ngModel)]="filter.planets" (change)="activateChange('planets')">Planets</mat-checkbox>
+    <mat-checkbox class="filter-menu-element" [(ngModel)]="filter.people" (change)="activateChange()">People</mat-checkbox>
+    <mat-checkbox class="filter-menu-element" [(ngModel)]="filter.films" (change)="activateChange()">Films</mat-checkbox>
+    <mat-checkbox class="filter-menu-element" [(ngModel)]="filter.starships" (change)="activateChange()">Starships</mat-checkbox>
+    <mat-checkbox class="filter-menu-element" [(ngModel)]="filter.vehicles" (change)="activateChange()">Vehicles</mat-checkbox>
+    <mat-checkbox class="filter-menu-element" [(ngModel)]="filter.species" (change)="activateChange()">Species</mat-checkbox>
+    <mat-checkbox class="filter-menu-element" [(ngModel)]="filter.planets" (change)="activateChange()">Planets</mat-checkbox>
 </section>
 <section>
     <app-films *ngIf="filterCategories.films"></app-films>
