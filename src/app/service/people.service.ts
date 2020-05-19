@@ -23,7 +23,6 @@ export class PeopleService {
     .subscribe((people)=>{
       this.people = people.results;
       this.peopleUpdated.next(people.results);
-      console.log(people.results);
       
     });
   }

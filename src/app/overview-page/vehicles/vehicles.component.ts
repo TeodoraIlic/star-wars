@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Categories } from '../categories.model';
 import { Vehicle } from './vehicles.model';
@@ -11,7 +11,7 @@ import { FuzzySearchService } from 'src/app/service/fuzzy-search.service';
   templateUrl: './vehicles.component.html',
   styleUrls: ['./vehicles.component.css']
 })
-export class VehiclesComponent implements OnInit {
+export class VehiclesComponent implements OnInit, OnDestroy {
   isLoading = true;
   vehiclesUrl: string; 
   searchValue: string = '';
@@ -36,12 +36,16 @@ export class VehiclesComponent implements OnInit {
     })
   }
 
+  ngOnDestroy(){
+    this.categoriesSub.unsubscribe();
+    this.vehiclesSub.unsubscribe();
+  }
+  
   getVehicles(url: string){
     this.vehiclesService.getVehicles(url);
     this.vehiclesSub = this.vehiclesService.getVehiclesUpdateListener().subscribe((starships)=>{
       this.vehicles = starships;
     });
-    console.log(this.vehicles);
   }
 
 }

@@ -23,7 +23,6 @@ export class StarshipsService {
       .subscribe((starships)=>{
         this.starships = starships.results;
         this.starshipsUpdated.next(starships.results);
-        console.log(starships.results);
       });
   }
  

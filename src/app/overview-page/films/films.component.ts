@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Categories } from '../categories.model';
 import { CategoriesService } from 'src/app/service/categories.service';
@@ -11,7 +11,7 @@ import { FuzzySearchService } from 'src/app/service/fuzzy-search.service';
   templateUrl: './films.component.html',
   styleUrls: ['./films.component.css']
 })
-export class FilmsComponent implements OnInit {
+export class FilmsComponent implements OnInit, OnDestroy {
   isLoading = true;
   searchValue: string = '';
   filmsUrl: string; 
@@ -34,6 +34,11 @@ export class FilmsComponent implements OnInit {
     this.fuzzySearchService.valueUpdateListener().subscribe(value=>{
       this.searchValue=value;
     })
+  }
+  ngOnDestroy(){
+    this.categoriesSub.unsubscribe();
+    this.filmsSub.unsubscribe();
+  
   }
 
   getFilms(url: string){

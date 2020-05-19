@@ -23,7 +23,6 @@ export class VehiclesService {
       .subscribe((vehicles)=>{
         this.vehicles = vehicles.results;
         this.vehiclesUpdated.next(vehicles.results);
-        console.log(vehicles.results);
       });
     }
 }

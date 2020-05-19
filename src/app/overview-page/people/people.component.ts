@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Categories } from '../categories.model';
 import { Subscription } from 'rxjs';
 import { CategoriesService } from 'src/app/service/categories.service';
@@ -11,7 +11,7 @@ import { FuzzySearchService } from 'src/app/service/fuzzy-search.service';
   templateUrl: './people.component.html',
   styleUrls: ['./people.component.css']
 })
-export class PeopleComponent implements OnInit {
+export class PeopleComponent implements OnInit, OnDestroy {
   isLoading = true;
   peopleUrl: string; 
   searchValue: string = '';
@@ -37,12 +37,16 @@ export class PeopleComponent implements OnInit {
     })
   }
 
+  ngOnDestroy(){
+    this.peopleSub.unsubscribe();
+    this.categoriesSub.unsubscribe();
+  }
+
   getAllPeople(url: string){
     this.peopleService.getAllPeople(url);
     this.peopleSub = this.peopleService.getPeopleUpdateListener().subscribe((people)=>{
       this.people = people;
     });
-    console.log(this.people);
     
   }
 

@@ -22,7 +22,6 @@ export class PlanetsService {
       .subscribe((planets)=>{
         this.planets = planets.results;
         this.planetsUpdated.next(planets.results);
-        console.log(planets.results);
       });
   }
 

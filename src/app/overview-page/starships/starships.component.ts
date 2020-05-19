@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Categories } from '../categories.model';
 import { Subscription } from 'rxjs';
 import { Starship } from './starships.model';
@@ -11,7 +11,7 @@ import { FuzzySearchService } from 'src/app/service/fuzzy-search.service';
   templateUrl: './starships.component.html',
   styleUrls: ['./starships.component.css']
 })
-export class StarshipsComponent implements OnInit {
+export class StarshipsComponent implements OnInit, OnDestroy {
   isLoading = true;
   starshipsUrl: string; 
   searchValue: string = '';
@@ -36,11 +36,15 @@ export class StarshipsComponent implements OnInit {
     })
   }
 
+  ngOnDestroy(){
+    this.categoriesSub.unsubscribe();
+    this.starshipsSub.unsubscribe();
+  }
+
   getStarships(url: string){
     this.starshipsService.getStarships(url);
     this.starshipsSub = this.starshipsService.getStarshipsUpdateListener().subscribe((starships)=>{
       this.starships = starships;
     });
-    console.log(this.starship);
   }
 }

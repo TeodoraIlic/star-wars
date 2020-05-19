@@ -34,7 +34,6 @@ export class FilmsService {
     })).subscribe((films)=>{
       this.films = films.films;
       this.filmsUpdated.next(films.films);
-      console.log(films.films);
       
     });
   }
@@ -46,7 +45,6 @@ export class FilmsService {
     this.http.get<Film>(uri).subscribe((film)=>{
       this.film = film;
       this.filmUpdated.next(film);
-      console.log(film);
       
     }); 
   }

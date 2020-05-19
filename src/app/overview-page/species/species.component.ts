@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Specimen } from './species.model';
 import { Subscription } from 'rxjs';
 import { Categories } from '../categories.model';
@@ -11,7 +11,7 @@ import { FuzzySearchService } from 'src/app/service/fuzzy-search.service';
   templateUrl: './species.component.html',
   styleUrls: ['./species.component.css']
 })
-export class SpeciesComponent implements OnInit {
+export class SpeciesComponent implements OnInit, OnDestroy {
   isLoading = true;
   speciesUrl: string; 
   searchValue: string = '';
@@ -36,11 +36,15 @@ export class SpeciesComponent implements OnInit {
     })
   }
 
+  ngOnDestroy(){
+    this.speciesSub.unsubscribe();
+    this.categoriesSub.unsubscribe();
+  }
+
   getSpecies(url: string){
     this.speciesService.getSpecies(url);
     this.speciesSub = this.speciesService.getSpeciesUpdateListener().subscribe((species)=>{
       this.species = species;
     });
-    console.log(this.species);
   }
 }

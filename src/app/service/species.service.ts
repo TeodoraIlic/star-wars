@@ -23,7 +23,6 @@ export class SpeciesService {
       .subscribe((species)=>{
         this.species = species.results;
         this.speciesUpdated.next(species.results);
-        console.log(species.results);
       });
   }
 
