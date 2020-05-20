@@ -1,10 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Categories } from '../categories.model';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { CategoriesService } from 'src/app/service/categories.service';
 import { PeopleService } from 'src/app/service/people.service';
 import {  Person } from './person.model';
 import { FuzzySearchService } from 'src/app/service/fuzzy-search.service';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-people',
@@ -13,7 +15,10 @@ import { FuzzySearchService } from 'src/app/service/fuzzy-search.service';
 })
 export class PeopleComponent implements OnInit, OnDestroy {
   isLoading = true;
+  viewAll: boolean = true;
+  idList: string[];
   peopleUrl: string; 
+  listOfPeopleToView=[];
   searchValue: string = '';
   categories: Categories;
   categoriesSub: Subscription;
@@ -21,24 +26,57 @@ export class PeopleComponent implements OnInit, OnDestroy {
   peopleSub: Subscription;
   person: Person;
   personSub: Subscription;
-  constructor(private categoriesService: CategoriesService, private peopleService: PeopleService, private fuzzySearchService: FuzzySearchService) { }
+  constructor(private categoriesService: CategoriesService, 
+              private peopleService: PeopleService, 
+              private fuzzySearchService: FuzzySearchService,
+              private router: Router,
+              private route: ActivatedRoute) {
+
+               if(this.router.getCurrentNavigation()){
+                this.idList =  this.router.getCurrentNavigation().extras.state.characters;
+
+               }
+
+              }
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe((paramMap: ParamMap)=>{
+      if(paramMap.has('related')){
+          this.viewAll = false ;
+          this.getRelatedPeople(this.idList); 
+      }
+    });
+    
+   
+    this.peopleService.getPersonList();
+    this.personSub = this.peopleService.getPersonUpdateListener().subscribe(people=>{
+      this.listOfPeopleToView = people;
+    })
+    
+
+    
     this.categoriesService.getCategories();
     this.categoriesSub = this.categoriesService.getCategoriesUpdateListener().subscribe((categories)=>{
       this.isLoading = false;
       this.categories = categories;
       this.peopleUrl = categories.people;
-      this.getAllPeople(this.peopleUrl);
+
+      if(this.viewAll){
+        this.getAllPeople(this.peopleUrl);
+      }
     
     });
     this.fuzzySearchService.valueUpdateListener().subscribe(value=>{
       this.searchValue=value;
     })
+
   }
 
   ngOnDestroy(){
-    this.peopleSub.unsubscribe();
+    if(this.peopleSub){
+      this.peopleSub.unsubscribe();    
+    }
+    this.personSub.unsubscribe();
     this.categoriesSub.unsubscribe();
   }
 
@@ -50,11 +88,11 @@ export class PeopleComponent implements OnInit, OnDestroy {
     
   }
 
-  getPerson(url: string){
-    // this.filmsService.getFilm(url);
-    // this.filmSub = this.filmsService.getFilmUpdateListener().subscribe((film: Film)=>{
-    //   this.film = film;
-    // });
+  getRelatedPeople(idList: string[]){
+    idList.map( id => {
+      this.peopleService.getPerson(id);
+    });
+    
   }
 
 }

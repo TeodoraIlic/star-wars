@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent},
   { path: 'overview-page', component: OverviewPageComponent, canActivate: [AuthGuard]},
   { path: 'films', component: FilmsComponent, canActivate: [AuthGuard]},
-  { path: 'people', component: PeopleComponent, canActivate: [AuthGuard]},
+  { path: 'people/:related', component: PeopleComponent, canActivate: [AuthGuard]},
   { path: 'planets', component: PlanetsComponent, canActivate: [AuthGuard]},
   { path: 'species', component: SpeciesComponent, canActivate: [AuthGuard]},
   { path: 'starships', component: StarshipsComponent, canActivate: [AuthGuard]},

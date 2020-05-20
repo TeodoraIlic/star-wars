@@ -5,6 +5,7 @@ import { CategoriesService } from 'src/app/service/categories.service';
 import { Film } from './films.model';
 import { FilmsService } from 'src/app/service/films.service';
 import { FuzzySearchService } from 'src/app/service/fuzzy-search.service';
+import { PeopleService } from 'src/app/service/people.service';
 
 @Component({
   selector: 'app-films',
@@ -14,6 +15,7 @@ import { FuzzySearchService } from 'src/app/service/fuzzy-search.service';
 export class FilmsComponent implements OnInit, OnDestroy {
   isLoading = true;
   searchValue: string = '';
+  
   filmsUrl: string; 
   categories: Categories;
   categoriesSub: Subscription;
@@ -21,7 +23,10 @@ export class FilmsComponent implements OnInit, OnDestroy {
   filmsSub: Subscription;
   film: Film;
   filmSub: Subscription;
-  constructor(private categoriesService: CategoriesService, private filmsService: FilmsService, private fuzzySearchService: FuzzySearchService) { }
+  constructor(private categoriesService: CategoriesService, 
+              private filmsService: FilmsService, 
+              private fuzzySearchService: FuzzySearchService,
+              private peopleService: PeopleService) { }
 
   ngOnInit(): void {
     this.categoriesService.getCategories();
@@ -47,13 +52,22 @@ export class FilmsComponent implements OnInit, OnDestroy {
       this.films = films;
      
     });
+  
   }
 
   getFilm(url: string){
     this.filmsService.getFilm(url);
     this.filmSub = this.filmsService.getFilmUpdateListener().subscribe((film: Film)=>{
       this.film = film;
+      
     });
+    
+  }
+
+  viewCharacters(charactersArr: []){
+    charactersArr.map(el => {
+      this.peopleService
+    })
   }
 
 }

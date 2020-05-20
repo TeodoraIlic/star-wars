@@ -27,6 +27,10 @@ export class FilmsService {
         films: films.results.map(film=>{
           return {
               ... film,
+              characters: film.characters.map( el => {
+                let id = el.substring(33, el.length-1);
+                return id;
+              }),
               release_date: new Date(film.release_date)
             }
         })

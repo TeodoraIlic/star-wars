@@ -1,4 +1,4 @@
-<mat-accordion multi="true" *ngIf="!isLoading">
+<mat-accordion multi="true" >
     <mat-expansion-panel *ngFor="let film of films | fuzzySearch: ['title']: searchValue">
         <mat-expansion-panel-header>
             <p>{{film.title}} <b>( {{ film.release_date | date: 'longDate'}} )</b></p>
@@ -7,11 +7,11 @@
         <p>Director: {{film.director}}</p>
         <p>Producer: {{film.producer}}</p>
         <mat-action-row >
-            <a mat-button color="accent" [routerLink]="['/film', film.url]">View Characters </a>
-            <a mat-button color="accent" [routerLink]="['/film', film.url]">View Planets</a>
-            <a mat-button color="accent" [routerLink]="['/film', film.url]">View Species</a>
-            <a mat-button color="accent" [routerLink]="['/film', film.url]">View Starships</a>
-            <a mat-button color="accent" [routerLink]="['/film', film.url]">View Vehicles</a>
+            <a mat-button color="accent" [routerLink]="['/people', 'related']" [state]="{ characters: film.characters }">View Characters</a>
+            <a mat-button color="accent" [routerLink]="['/planets', 'related']">View Planets</a>
+            <a mat-button color="accent" [routerLink]="['/species', 'related']">View Species</a>
+            <a mat-button color="accent" [routerLink]="['/starships', 'related']">View Starships</a>
+            <a mat-button color="accent" [routerLink]="['/vehicles', 'related']">View Vehicles</a>
         </mat-action-row>
     </mat-expansion-panel>
 </mat-accordion>

@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoriesService } from '../service/categories.service';
-import { Subscription } from 'rxjs';
-import { Categories } from './categories.model';
+
 
 @Component({
   selector: 'app-overview-page',

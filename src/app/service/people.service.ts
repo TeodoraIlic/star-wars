@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Person, People } from '../overview-page/people/person.model';
 
@@ -7,12 +7,28 @@ import { Person, People } from '../overview-page/people/person.model';
   providedIn: 'root'
 })
 export class PeopleService {
-
-  private person;
+  
+  private personList: Person[] = [];
   private people;
-  private personUpdated= new Subject<Person>();
+  personListUpdated : BehaviorSubject<Person[]> = new BehaviorSubject<Person[]>([]);
   private peopleUpdated= new Subject<Person[]>();
   constructor(private http: HttpClient) { }
+
+
+  getPersonUpdateListener() {
+    return this.personListUpdated.asObservable();
+  }
+  getPersonList(){
+   this.personListUpdated.next(this.personList);
+  }
+  
+  getPerson(id: string) {
+    const uri = "/api/people/"+id+"/";
+    this.http.get<Person>(uri).subscribe( person => {
+      
+      this.personList.push(person);
+    })
+  }
 
   getPeopleUpdateListener() {
     return this.peopleUpdated.asObservable();
