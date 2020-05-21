@@ -10,7 +10,7 @@ export class PlanetsService {
   private planetList: Planet[] = [];
   private planet: Planet;
   private planets: Planet[];
-  planetListUpdated : BehaviorSubject<Planet[]> = new BehaviorSubject<Planet[]>([]);
+  private planetListUpdated : BehaviorSubject<Planet[]> = new BehaviorSubject<Planet[]>([]);
   private planetsUpdated= new Subject<Planet[]>();
   constructor(private http: HttpClient) { }
 
