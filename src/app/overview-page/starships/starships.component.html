@@ -20,7 +20,7 @@
 <mat-accordion multi="true" *ngIf="!viewAll">
     <app-header></app-header>
     <div class="big-img"></div> 
-    <mat-expansion-panel *ngFor="let starship of starships | fuzzySearch: ['name', 'model']: searchValue">
+    <mat-expansion-panel *ngFor="let starship of listOfStarshipsToView | fuzzySearch: ['name', 'model']: searchValue">
         <mat-expansion-panel-header>
             <p>{{starship.name}} </p>
         </mat-expansion-panel-header>
