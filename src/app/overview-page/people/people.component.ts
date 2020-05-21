@@ -6,7 +6,6 @@ import { PeopleService } from 'src/app/service/people.service';
 import {  Person } from './person.model';
 import { FuzzySearchService } from 'src/app/service/fuzzy-search.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-people',
@@ -33,8 +32,8 @@ export class PeopleComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute) {
 
                if(this.router.getCurrentNavigation()){
-                this.idList =  this.router.getCurrentNavigation().extras.state.characters;
-
+                this.idList =  this.router.getCurrentNavigation().extras.state.people;
+                
                }
 
               }
@@ -76,7 +75,9 @@ export class PeopleComponent implements OnInit, OnDestroy {
     if(this.peopleSub){
       this.peopleSub.unsubscribe();    
     }
-    this.personSub.unsubscribe();
+    if(this.personSub){
+      this.personSub.unsubscribe();
+    }
     this.categoriesSub.unsubscribe();
   }
 

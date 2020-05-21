@@ -6,6 +6,7 @@ import { Film } from './films.model';
 import { FilmsService } from 'src/app/service/films.service';
 import { FuzzySearchService } from 'src/app/service/fuzzy-search.service';
 import { PeopleService } from 'src/app/service/people.service';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-films',
@@ -14,8 +15,11 @@ import { PeopleService } from 'src/app/service/people.service';
 })
 export class FilmsComponent implements OnInit, OnDestroy {
   isLoading = true;
+  viewAll: boolean = true;
+  idList: string[];
   searchValue: string = '';
-  
+  listOfFilmsToView = [];
+  listOfFilmsToView1;
   filmsUrl: string; 
   categories: Categories;
   categoriesSub: Subscription;
@@ -26,9 +30,26 @@ export class FilmsComponent implements OnInit, OnDestroy {
   constructor(private categoriesService: CategoriesService, 
               private filmsService: FilmsService, 
               private fuzzySearchService: FuzzySearchService,
-              private peopleService: PeopleService) { }
+              private router: Router,
+              private route: ActivatedRoute) { 
+                if(this.router.getCurrentNavigation()){
+                  this.idList =  this.router.getCurrentNavigation().extras.state.films;
+  
+                 }
+              }
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe((paramMap: ParamMap)=>{
+      if(paramMap.has('related')){
+          this.viewAll = false ;
+          this.getRelatedFilms(this.idList); 
+      }
+    });
+    this.filmsService.getFilmList();
+    // this.filmSub = this.filmsService.getFilmUpdateListener().subscribe( filmList =>{
+    //   this.listOfFilmsToView = filmList;
+    // });
+    this.listOfFilmsToView1 = this.filmsService.getFilmUpdateListener();
     this.categoriesService.getCategories();
     this.categoriesSub = this.categoriesService.getCategoriesUpdateListener().subscribe((categories)=>{
       this.isLoading = false;
@@ -42,7 +63,12 @@ export class FilmsComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(){
     this.categoriesSub.unsubscribe();
-    this.filmsSub.unsubscribe();
+    if(this.filmsSub){
+      this.filmsSub.unsubscribe();
+    }
+    if( this.filmSub){
+      this.filmSub.unsubscribe();
+    }
   
   }
 
@@ -55,14 +81,9 @@ export class FilmsComponent implements OnInit, OnDestroy {
   
   }
 
-  getFilm(url: string){
-    this.filmsService.getFilm(url);
-    this.filmSub = this.filmsService.getFilmUpdateListener().subscribe((film: Film)=>{
-      this.film = film;
-      
+  getRelatedFilms(idList: string[]){
+    idList.map(id=>{
+      this.filmsService.getFilm(id);
     });
-    
   }
-
-
 }

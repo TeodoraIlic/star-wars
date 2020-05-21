@@ -2,19 +2,31 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Films, Film } from '../overview-page/films/films.model';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FilmsService {
+  private filmList: Film[] = [];
   private film: Film;
   private films: Film[];
-  private filmUpdated= new Subject<Film>();
-  private filmsUpdated= new Subject<Film[]>();
+  private filmListUpdated: BehaviorSubject<Film[]>= new BehaviorSubject<Film[]>([]);
+  private filmsUpdated = new Subject<Film[]>();
   
   constructor(private http: HttpClient) { }
-
+  getFilmUpdateListener() {
+    return this.filmListUpdated.asObservable();
+  }
+  getFilmList(){
+    this.filmListUpdated.next(this.filmList);
+  }
+  getFilm(id: string){
+    const uri = id;
+    this.http.get<Film>(uri).subscribe((film)=>{
+      this.filmList.push(film);
+    }); 
+  }
   getFilmsUpdateListener(){
     return this.filmsUpdated.asObservable();
   }
@@ -28,7 +40,7 @@ export class FilmsService {
           return {
               ... film,
               characters: film.characters.map( el => {
-                let id = el.substring(33, el.length-1);
+                let id = el.substring(21, el.length-1);
                 return id;
               }),
               planets: film.planets.map(el => {
@@ -57,15 +69,5 @@ export class FilmsService {
       
     });
   }
-  getFilmUpdateListener() {
-    return this.filmUpdated.asObservable();
-  }
-  getFilm(url: string){
-    const uri = url.substring(16,url.length);
-    this.http.get<Film>(uri).subscribe((film)=>{
-      this.film = film;
-      this.filmUpdated.next(film);
-      
-    }); 
-  }
+
 }

@@ -65,7 +65,12 @@ export class PlanetsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(){
-    this.planetsSub.unsubscribe();
+    if(this.planetsSub){
+      this.planetsSub.unsubscribe();
+    }
+    if(this.planetSub){
+      this.planetSub.unsubscribe();
+    }
     this.categoriesSub.unsubscribe();
   }
 

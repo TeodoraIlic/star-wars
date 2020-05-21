@@ -12,8 +12,8 @@
         <p>Number of passengers: {{vehicle.passengers}}</p>
         <p>Cost of the vehicle in Galactic Credits: {{vehicle.cost_in_credits}}</p>
         <mat-action-row >
-            <a mat-button color="accent" >View Pilots</a>
-            <a mat-button color="accent" >View Films</a>
+            <a mat-button color="accent" [routerLink]="['/people', 'related']" [state]="{ people: vehicle.pilots }">View Pilots</a>
+            <a mat-button color="accent" [routerLink]="['/films', 'related']" [state]="{ films: vehicle.films }">View Films</a>
         </mat-action-row>
     </mat-expansion-panel>
 </mat-accordion>

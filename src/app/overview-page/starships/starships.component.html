@@ -12,8 +12,8 @@
         <p>Max Atmosphering Speed: {{starship.max_atmosphering_speed}}</p>
         <p>Hyperdrive Rating: {{starship.hyperdrive_rating}}</p>
         <mat-action-row >
-            <a mat-button color="accent">View Pilots</a>
-            <a mat-button color="accent">View Films</a>
+            <a mat-button color="accent" [routerLink]="['/people', 'related']" [state]="{ people: starship.pilots }">View Pilots</a>
+            <a mat-button color="accent" [routerLink]="['/films', 'related']" [state]="{ films: starship.films }">View Films</a>
         </mat-action-row>
     </mat-expansion-panel>
 </mat-accordion>

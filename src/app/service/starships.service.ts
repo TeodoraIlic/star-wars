@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Starship, Starships } from '../overview-page/starships/starships.model';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -33,10 +34,26 @@ export class StarshipsService {
 
   getStarships(url: string) {
     const uri = url.substring(16,url.length);
-    this.http.get<Starships>(uri)
+    this.http.get<Starships>(uri).pipe(map((starships: Starships)=>{
+      return {
+        starships: starships.results.map(starship=>{
+          return {
+              ... starship,
+              films: starship.films.map( el => {
+                let id = el.substring(21, el.length-1);
+                return id;
+              }),
+              pilots: starship.pilots.map(el => {
+                let id = el.substring(21, el.length-1);                
+                return id;
+              })
+            }
+        })
+      }
+    }))
       .subscribe((starships)=>{
-        this.starships = starships.results;
-        this.starshipsUpdated.next(starships.results);
+        this.starships = starships.starships;
+        this.starshipsUpdated.next(starships.starships);
       });
   }
  

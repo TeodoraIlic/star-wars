@@ -11,8 +11,8 @@
         <p>Skin Colors: {{specimen.skin_colors}}</p>
         <p>Homeworld (getOnePlanet)</p>
         <mat-action-row >
-            <a mat-button color="accent" >View People </a>
-            <a mat-button color="accent" >View Films</a>
+            <a mat-button color="accent" [routerLink]="['/people', 'related']" [state]="{ people: specimen.people }">View People </a>
+            <a mat-button color="accent" [routerLink]="['/films', 'related']" [state]="{ films: specimen.films }">View Films</a>
         </mat-action-row>
     </mat-expansion-panel>
 </mat-accordion>
@@ -30,7 +30,6 @@
         <p>Eye colors: {{specimen.eye_colors}}</p>
         <p>Hair Colors: {{specimen.hair_colors}}</p>
         <p>Skin Colors: {{specimen.skin_colors}}</p>
-        <p>Homeworld (getOnePlanet)</p>
         
     </mat-expansion-panel>
 </mat-accordion>

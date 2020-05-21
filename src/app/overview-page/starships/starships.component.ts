@@ -62,7 +62,12 @@ export class StarshipsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(){
     this.categoriesSub.unsubscribe();
-    this.starshipsSub.unsubscribe();
+    if(this.starshipsSub){
+      this.starshipsSub.unsubscribe();
+    }
+    if(this.starshipSub){
+      this.starshipSub.unsubscribe();
+    }
   }
 
   getStarships(url: string){
@@ -72,9 +77,9 @@ export class StarshipsComponent implements OnInit, OnDestroy {
     });
   }
 
-  getRelatedStarships(idList){
+  getRelatedStarships(idList: string[]){
     idList.map(id => {
       this.starshipsService.getStarship(id);
-    })
+    });
   }
 }

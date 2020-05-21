@@ -62,7 +62,12 @@ export class VehiclesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(){
     this.categoriesSub.unsubscribe();
+    if(this.vehicleSub){
+      this.vehicleSub.unsubscribe();
+    }
+    if(this.vehiclesSub){
     this.vehiclesSub.unsubscribe();
+    }
   }
   
   getVehicles(url: string){

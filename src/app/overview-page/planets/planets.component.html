@@ -12,8 +12,8 @@
         <p>Surface water: {{planet.surface_water}}</p>
         <p>Terrain: {{planet.terrain}}</p>
         <mat-action-row >
-            <a mat-button color="accent" >View Films </a>
-            <a mat-button color="accent" >View Residents</a>
+            <a mat-button color="accent" [routerLink]="['/films', 'related']" [state]="{ films: planet.films }">View Films </a>
+            <a mat-button color="accent" [routerLink]="['/people', 'related']" [state]="{ people: planet.residents }">View Residents</a>
         </mat-action-row>
     </mat-expansion-panel>
 </mat-accordion>

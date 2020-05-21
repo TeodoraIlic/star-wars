@@ -11,11 +11,10 @@
         <p>Hair color: {{person.hair_color}}</p>
         <p>Skin color: {{person.skin_color}}</p>
         <mat-action-row >
-            <a mat-button color="accent" >View Films </a>
-            <a mat-button color="accent" >View Planets</a>
-            <a mat-button color="accent">View Species</a>
-            <a mat-button color="accent" >View Starships</a>
-            <a mat-button color="accent">View Vehicles</a>
+            <a mat-button color="accent" [routerLink]="['/films', 'related']" [state]="{ films: person.films }">View Films </a>
+            <a mat-button color="accent" [routerLink]="['/species', 'related']" [state]="{ species: person.species }">View Species</a>
+            <a mat-button color="accent" [routerLink]="['/starships', 'related']" [state]="{ starships: person.starships }">View Starships</a>
+            <a mat-button color="accent" [routerLink]="['/vehicles', 'related']" [state]="{ vehicles: person.vehicles }">View Vehicles</a>
         </mat-action-row>
     </mat-expansion-panel>
 </mat-accordion>

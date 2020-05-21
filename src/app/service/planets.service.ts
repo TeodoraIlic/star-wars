@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { Planet, Planets } from '../overview-page/planets/planets.model';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -35,10 +36,25 @@ export class PlanetsService {
   }
   getAllPlanets(url: string) {
     const uri = url.substring(16,url.length);
-    this.http.get<Planets>(uri)
-      .subscribe((planets)=>{
-        this.planets = planets.results;
-        this.planetsUpdated.next(planets.results);
+    this.http.get<Planets>(uri).pipe(map((planets: Planets)=>{
+      return {
+        planets: planets.results.map(planet=>{
+          return {
+              ... planet,
+              films: planet.films.map( el => {
+                let id = el.substring(21, el.length-1);
+                return id;
+              }),
+              residents: planet.residents.map(el => {
+                let id = el.substring(21, el.length-1);                
+                return id;
+              })
+            }
+        })
+      }
+    })).subscribe((planets)=>{
+        this.planets = planets.planets;
+        this.planetsUpdated.next(planets.planets);
       });
   }
 

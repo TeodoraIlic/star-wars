@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Species, Specimen } from '../overview-page/species/species.model';
 import { Planet } from '../overview-page/planets/planets.model';
 import { Subject, BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -35,10 +36,26 @@ export class SpeciesService {
   }
   getSpecies(url: string) {
     const uri = url.substring(16,url.length);
-    this.http.get<Species>(uri)
+    this.http.get<Species>(uri).pipe(map((species: Species)=>{
+      return {
+        species: species.results.map(specimen=>{
+          return {
+              ... specimen,
+              films: specimen.films.map( el => {
+                let id = el.substring(21, el.length-1);
+                return id;
+              }),
+              people: specimen.people.map(el => {
+                let id = el.substring(21, el.length-1);                
+                return id;
+              })
+            }
+        })
+      }
+    }))
       .subscribe((species)=>{
-        this.species = species.results;
-        this.speciesUpdated.next(species.results);
+        this.species = species.species;
+        this.speciesUpdated.next(species.species);
       });
   }
 

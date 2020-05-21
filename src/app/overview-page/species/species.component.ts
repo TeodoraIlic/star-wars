@@ -62,7 +62,12 @@ export class SpeciesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(){
-    this.speciesSub.unsubscribe();
+    if(this.species){
+      this.speciesSub.unsubscribe();
+    }
+    if(this.specimenSub){
+      this.specimenSub.unsubscribe();
+    }
     this.categoriesSub.unsubscribe();
   }
 
