@@ -16,12 +16,12 @@ const routes: Routes = [
   { path: '', component: LoginComponent},
   { path: 'signup', component: SignupComponent},
   { path: 'overview-page', component: OverviewPageComponent, canActivate: [AuthGuard]},
-  { path: 'films', component: FilmsComponent, canActivate: [AuthGuard]},
+  { path: 'films/:related', component: FilmsComponent, canActivate: [AuthGuard]},
   { path: 'people/:related', component: PeopleComponent, canActivate: [AuthGuard]},
-  { path: 'planets', component: PlanetsComponent, canActivate: [AuthGuard]},
-  { path: 'species', component: SpeciesComponent, canActivate: [AuthGuard]},
-  { path: 'starships', component: StarshipsComponent, canActivate: [AuthGuard]},
-  { path: 'vehicles', component: VehiclesComponent, canActivate: [AuthGuard]}
+  { path: 'planets/:related', component: PlanetsComponent, canActivate: [AuthGuard]},
+  { path: 'species/:related', component: SpeciesComponent, canActivate: [AuthGuard]},
+  { path: 'starships/:related', component: StarshipsComponent, canActivate: [AuthGuard]},
+  { path: 'vehicles/:related', component: VehiclesComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

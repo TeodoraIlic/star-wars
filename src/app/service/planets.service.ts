@@ -1,17 +1,34 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { Planet, Planets } from '../overview-page/planets/planets.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlanetsService {
+  private planetList: Planet[] = [];
   private planet: Planet;
   private planets: Planet[];
-  private planetUpdated= new Subject<Planet>();
+  planetListUpdated : BehaviorSubject<Planet[]> = new BehaviorSubject<Planet[]>([]);
   private planetsUpdated= new Subject<Planet[]>();
   constructor(private http: HttpClient) { }
+
+
+  getPlanetUpdateListener(){
+    return this.planetListUpdated.asObservable();
+  }
+
+  getPlanetList(){
+    this.planetListUpdated.next(this.planetList);
+  }
+
+  getPlanetById(id: string) {
+    const uri = id;
+    this.http.get<Planet>(uri).subscribe( planet =>{
+      this.planetList.push(planet);
+    })
+  }
 
   getPlanetsUpdateListener() {
     return this.planetsUpdated.asObservable();
@@ -24,5 +41,6 @@ export class PlanetsService {
         this.planetsUpdated.next(planets.results);
       });
   }
+
 
 }

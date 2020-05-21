@@ -5,6 +5,7 @@ import { CategoriesService } from 'src/app/service/categories.service';
 import { PlanetsService } from 'src/app/service/planets.service';
 import { Planet } from './planets.model';
 import { FuzzySearchService } from 'src/app/service/fuzzy-search.service';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-planets',
@@ -14,7 +15,10 @@ import { FuzzySearchService } from 'src/app/service/fuzzy-search.service';
 export class PlanetsComponent implements OnInit, OnDestroy {
 
   isLoading = true;
+  viewAll: boolean = true;
   planetsUrl: string;
+  idList: string[];
+  listOfPlanetToView = [];
   searchValue: string = ''; 
   categories: Categories;
   categoriesSub: Subscription;
@@ -22,9 +26,32 @@ export class PlanetsComponent implements OnInit, OnDestroy {
   planetsSub: Subscription;
   planet: Planet;
   planetSub: Subscription;
-  constructor(private categoriesService: CategoriesService, private planetsService: PlanetsService, private fuzzySearchService: FuzzySearchService) { }
+  constructor(private categoriesService: CategoriesService, 
+              private planetsService: PlanetsService, 
+              private fuzzySearchService: FuzzySearchService,
+              private router: Router,
+              private route: ActivatedRoute) {
+
+                if(this.router.getCurrentNavigation()){
+                  this.idList =  this.router.getCurrentNavigation().extras.state.planets;
+  
+                 }
+                }
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe((paramMap: ParamMap)=>{
+      if(paramMap.has('related')){
+          this.viewAll = false ;
+          this.getRelatedPlanets(this.idList); 
+      }
+    });
+    
+   
+    this.planetsService.getPlanetList();
+    this.planetSub = this.planetsService.getPlanetUpdateListener().subscribe( planet =>{
+      this.listOfPlanetToView = planet;
+    })
+    
     this.categoriesService.getCategories();
     this.categoriesSub = this.categoriesService.getCategoriesUpdateListener().subscribe((categories)=>{
       this.isLoading = false;
@@ -48,6 +75,12 @@ export class PlanetsComponent implements OnInit, OnDestroy {
       this.planets = planets;
     });
    
+  }
+
+  getRelatedPlanets(idList: string[]){
+    idList.map(id => {
+      this.planetsService.getPlanetById(id);
+    });
   }
 
 }

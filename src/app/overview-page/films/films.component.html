@@ -8,10 +8,10 @@
         <p>Producer: {{film.producer}}</p>
         <mat-action-row >
             <a mat-button color="accent" [routerLink]="['/people', 'related']" [state]="{ characters: film.characters }">View Characters</a>
-            <a mat-button color="accent" [routerLink]="['/planets', 'related']">View Planets</a>
-            <a mat-button color="accent" [routerLink]="['/species', 'related']">View Species</a>
-            <a mat-button color="accent" [routerLink]="['/starships', 'related']">View Starships</a>
-            <a mat-button color="accent" [routerLink]="['/vehicles', 'related']">View Vehicles</a>
+            <a mat-button color="accent" [routerLink]="['/planets', 'related']" [state]="{ planets: film.planets }">View Planets</a>
+            <a mat-button color="accent" [routerLink]="['/species', 'related']" [state]="{ species: film.species }">View Species</a>
+            <a mat-button color="accent" [routerLink]="['/starships', 'related']" [state]="{ starships: film.starships }">View Starships</a>
+            <a mat-button color="accent" [routerLink]="['/vehicles', 'related']" [state]="{ vehicles: film.vehicles }">View Vehicles</a>
         </mat-action-row>
     </mat-expansion-panel>
 </mat-accordion>

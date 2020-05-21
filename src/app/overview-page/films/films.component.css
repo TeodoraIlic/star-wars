@@ -1,0 +1,11 @@
+.big-img {
+    display:block;
+    width:100%;
+    height:120%;
+    background: url("../../../assets/blue-sky-and-stars.jpg") no-repeat center center fixed;
+    background-size: cover;
+    margin-top: -100px;
+    margin-bottom: -100px;
+    z-index: -1111;
+    position: fixed;
+  }

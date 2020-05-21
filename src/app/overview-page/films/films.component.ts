@@ -64,10 +64,5 @@ export class FilmsComponent implements OnInit, OnDestroy {
     
   }
 
-  viewCharacters(charactersArr: []){
-    charactersArr.map(el => {
-      this.peopleService
-    })
-  }
 
 }

@@ -20,7 +20,7 @@
     </mat-expansion-panel>
 </mat-accordion>
 <mat-accordion multi="true" *ngIf="!viewAll">
-    <app-header *ngIf="!viewAll"></app-header>
+    <app-header></app-header>
     <div class="big-img"></div> 
 
     <mat-expansion-panel *ngFor="let person of listOfPeopleToView  | fuzzySearch: ['name']: searchValue">
