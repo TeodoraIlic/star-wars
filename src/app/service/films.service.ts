@@ -35,6 +35,18 @@ export class FilmsService {
                 let id = el.substring(21, el.length-1);
                 return id;
               }),
+              species: film.species.map(el => {
+                let id = el.substring(21, el.length-1);
+                return id;
+              }),
+              starships: film.starships.map(el => {
+                let id = el.substring(21, el.length-1);
+                return id;
+              }),
+              vehicles: film.vehicles.map(el => {
+                let id = el.substring(21, el.length-1);
+                return id;
+              }),
               release_date: new Date(film.release_date)
             }
         })
