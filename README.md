@@ -12,7 +12,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 # Start the Angular application
     npm run start
 
-# Navigate to http://localhost:4200/.
+Navigate to http://localhost:4200/.
 
 # Start the Server in NodeJs
     npm run dev
