@@ -2,17 +2,19 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.6.
 
-## Installation
-  # Install node.js
-  # Install Angular-CLI 
+# Installation
+  ## Install node.js
+  ## Install Angular-CLI 
         npm install -g @angular/cli
-  # Install dependencies
+  ## Install dependencies
         npm install 
 
-## Start the Angular application
+# Start the Angular application
     npm run start
-    Navigate to http://localhost:4200/.
-## Start the Server in NodeJs
+
+# Navigate to http://localhost:4200/.
+
+# Start the Server in NodeJs
     npm run dev
 
 # Configure Server
